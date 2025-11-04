@@ -94,5 +94,12 @@ public class ProductController {
 	public ResponseEntity<Boolean> isProductAvailable(@PathVariable Long id, @RequestParam Long quantity) {
 		return ResponseEntity.status(HttpStatus.OK).body(this.productService.isProductAvailable(id, quantity));
 	}
+	
+	@PutMapping("/{id}/restore-stock")
+	public ResponseEntity<Void> restoreStock(@PathVariable Long id, @RequestParam Long quantity) {
+		this.productService.restoreStock(id, quantity);
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+
+	}
 
 }

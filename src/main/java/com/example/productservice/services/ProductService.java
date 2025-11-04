@@ -29,5 +29,7 @@ public interface ProductService {
     void reduceStock(Long productId, Long quantity);
 
     boolean isProductAvailable(Long productId, Long quantity);
+    
+    void restoreStock(Long productId,Long quantity);
 
 }

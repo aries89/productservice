@@ -107,4 +107,12 @@ public class ProductServiceImpl implements ProductService {
 		return product.getStockQuantity() >= quantity;
 	}
 
+	@Override
+	public void restoreStock(Long productId, Long quantity) {
+		Product product = this.productRepository.findById(productId)
+				.orElseThrow(() -> new ProductNotFoundException(productId));
+		product.setStockQuantity(product.getStockQuantity()+quantity);
+				
+	}
+
 }

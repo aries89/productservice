@@ -36,16 +36,17 @@ public class Product {
 	@Column(nullable = false, precision = 10, scale = 2)
 	private BigDecimal price;
 	
-	@Column(nullable = false)
+	@Column(name="stock_quantity",nullable = false)
 	private Long stockQuantity;
 	
 	@Enumerated(EnumType.STRING)
 	private ProductCategory category;
 	
-	@Column(updatable = false)
+	@Column(name="created_at",updatable = false)
 	@CreationTimestamp
 	private LocalDateTime createdAt;
 	
+	@Column(name="updated_at")
 	@UpdateTimestamp
 	private LocalDateTime updatedAt;
 	
