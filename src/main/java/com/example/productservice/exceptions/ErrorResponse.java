@@ -1,15 +1,23 @@
 package com.example.productservice.exceptions;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.http.HttpStatusCode;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ErrorResponse {
 	
 	private HttpStatusCode status;
     private String message;
     private LocalDateTime timestamp;
+    private List<String> errors;
     
 	public ErrorResponse(HttpStatusCode status, String message, LocalDateTime timestamp) {
 		super();
@@ -18,29 +26,7 @@ public class ErrorResponse {
 		this.timestamp = timestamp;
 	}
 
-	public HttpStatusCode getStatus() {
-		return status;
-	}
-
-	public void setStatus(HttpStatusCode status) {
-		this.status = status;
-	}
-
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
-	public LocalDateTime getTimestamp() {
-		return timestamp;
-	}
-
-	public void setTimestamp(LocalDateTime timestamp) {
-		this.timestamp = timestamp;
-	}
+	
 	
 	
     

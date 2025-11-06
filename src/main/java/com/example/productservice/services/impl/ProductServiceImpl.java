@@ -1,6 +1,5 @@
 package com.example.productservice.services.impl;
 
-
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -70,16 +69,17 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<ProductResponseDto> getProductsByCategory(String category) {
 		ProductCategory categoryFromEnum = ProductCategory.valueOf(category.toUpperCase());
-		return this.productRepository.findByCategory(categoryFromEnum).stream()
-				.map(p -> this.productMapper.toDto(p)).toList();
+		return this.productRepository.findByCategory(categoryFromEnum).stream().map(p -> this.productMapper.toDto(p))
+				.toList();
 	}
 
 	@Override
-	public Page<ProductResponseDto> searchProductsByName(String productName,int page,int size,String sortBy,String sortDir) {
+	public Page<ProductResponseDto> searchProductsByName(String productName, int page, int size, String sortBy,
+			String sortDir) {
 		Sort sort = sortDir.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
 		Pageable pageable = PageRequest.of(page, size, sort);
-		Page<Product> products = this.productRepository.findByProductNameContainingIgnoreCase(productName,pageable);
-		return products.map( p -> this.productMapper.toDto(p));
+		Page<Product> products = this.productRepository.findByProductNameContainingIgnoreCase(productName, pageable);
+		return products.map(p -> this.productMapper.toDto(p));
 	}
 
 	@Override
@@ -92,11 +92,10 @@ public class ProductServiceImpl implements ProductService {
 	public void reduceStock(Long productId, Long quantity) {
 		Product product = this.productRepository.findById(productId)
 				.orElseThrow(() -> new ProductNotFoundException(productId));
-		if(quantity > product.getStockQuantity()) {
+		if (quantity > product.getStockQuantity()) {
 			throw new IllegalArgumentException("Insufficient stock");
 		}
 		product.setStockQuantity(product.getStockQuantity() - quantity);
-		
 
 	}
 
@@ -111,8 +110,13 @@ public class ProductServiceImpl implements ProductService {
 	public void restoreStock(Long productId, Long quantity) {
 		Product product = this.productRepository.findById(productId)
 				.orElseThrow(() -> new ProductNotFoundException(productId));
-		product.setStockQuantity(product.getStockQuantity()+quantity);
-				
+		product.setStockQuantity(product.getStockQuantity() + quantity);
+
+	}
+
+	@Override
+	public List<ProductResponseDto> getAllProductsByIds(List<Long> ids) {
+		return productRepository.findAllById(ids).stream().map(p -> productMapper.toDto(p)).toList();
 	}
 
 }

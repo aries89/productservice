@@ -31,5 +31,7 @@ public interface ProductService {
     boolean isProductAvailable(Long productId, Long quantity);
     
     void restoreStock(Long productId,Long quantity);
+    
+    List<ProductResponseDto> getAllProductsByIds(List<Long> ids);
 
 }

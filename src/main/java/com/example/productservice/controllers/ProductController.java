@@ -101,5 +101,10 @@ public class ProductController {
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 
 	}
+	
+	@PostMapping("/batch")
+	public ResponseEntity<List<ProductResponseDto>> getAllProductsByIds(@RequestBody List<Long> ids){
+		return ResponseEntity.status(HttpStatus.OK).body(productService.getAllProductsByIds(ids));
+	}
 
 }
