@@ -10,19 +10,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 
-
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 	
 	
 	@ExceptionHandler(ProductNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleProductNotFound(ProductNotFoundException ex) {
-        ErrorResponse response = new ErrorResponse(
-            HttpStatus.NOT_FOUND,
-            ex.getMessage(),
-            LocalDateTime.now()
-        );
-        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+		ErrorResponse response = new ErrorResponse(HttpStatus.NOT_FOUND, ex.getMessage(), LocalDateTime.now());
+		return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
